@@ -1,7 +1,6 @@
 export type ShipToken = {
   tokenId: number
   shipCode: string
-  nft: any
 }
 
 export type Level = {

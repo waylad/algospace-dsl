@@ -34,39 +34,6 @@ export const connectWallet = async () => {
       params = await algodClient.getTransactionParams().do()
       console.log(params)
 
-      // Check health
-      // algodClient
-      //   .healthCheck()
-      //   .do()
-      //   .then((d: any) => {
-      //     console.log(d)
-
-      //     // Fetch accounts
-      //     AlgoSigner.accounts({
-      //       ledger: 'TestNet',
-      //     })
-      //       .then((d: any) => {
-      //         address = d[0]?.address
-      //         console.log(address)
-
-      //         // Get params
-      //         algodClient
-      //           .getTransactionParams()
-      //           .do()
-      //           .then((d: any) => {
-      //             params = d
-      //           })
-      //           .catch((e: any) => {
-      //             console.error(e)
-      //           })
-      //       })
-      //       .catch((e: any) => {
-      //         console.error(e)
-      //       })
-      //   })
-      //   .catch((e: any) => {
-      //     console.error(e)
-      //   })
     } else {
       console.log('AlgoSigner is NOT installed.')
     }
@@ -78,7 +45,19 @@ export const connectWallet = async () => {
 
 export const getShips = async () => {
   try {
-    state.ownedShips = []
+    const resp = await AlgoSigner.indexer({
+      ledger: 'TestNet',
+      path: `/v2/assets?name=${'ALGOSPACE Ship'}&limit=${4}&creator=${address}`,
+    })
+
+    resp.assets.forEach((nft: any) => {
+      if (nft.params.name.indexOf('ALGOSPACE Ship') >= 0) {
+        state.ownedShips.push({
+          tokenId: nft.index,
+          shipCode: nft.params.name.replace('ALGOSPACE Ship ', ''),
+        })
+      }
+    })
   } catch (e: any) {
     console.log(e)
     // window.location.reload()
@@ -97,15 +76,6 @@ export const mintShip = async () => {
   const clawbackAddr = undefined
   const total = 1 // NFTs have totalIssuance of exactly 1
   const decimals = 0 // NFTs have decimals of exactly 0
-
-  // const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
-  //   from: creator,
-  //   assetName,
-  //   unitName,
-  //   total: 1,
-  //   decimals: 0,
-  //   suggestedParams: { ...params },
-  // })
 
   const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
     from: creator,
@@ -130,27 +100,6 @@ export const mintShip = async () => {
     tx: signedTxs[0].blob,
   })
   console.log(sent)
-
-  // Sign Tx
-  // AlgoSigner.signTxn([{ txn: txn_b64 }])
-  //   .then((d: any) => {
-  //     signedTxs = d
-
-  //     // Send Tx
-  //     AlgoSigner.send({
-  //       ledger: 'TestNet',
-  //       tx: signedTxs[0].blob,
-  //     })
-  //       .then((d: any) => {
-  //         console.log(d)
-  //       })
-  //       .catch((e: any) => {
-  //         console.error(e)
-  //       })
-  //   })
-  //   .catch((e: any) => {
-  //     console.error(e)
-  //   })
 }
 
 export const upgradeShip = async (ship: ShipToken) => {}

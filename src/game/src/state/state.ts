@@ -12,7 +12,6 @@ export let state: State = {
   currentShip: {
     tokenId: 0,
     shipCode: '0000',
-    nft: null
   },
   currentLevelIndex: 0,
   levelHistory: [],

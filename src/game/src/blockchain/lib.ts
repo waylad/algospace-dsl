@@ -102,7 +102,43 @@ export const mintShip = async () => {
   console.log(sent)
 }
 
-export const upgradeShip = async (ship: ShipToken) => {}
+export const upgradeShip = async (ship: ShipToken) => {
+  const creator = address
+  const defaultFrozen = false
+  const unitName = 'DSL'
+  const assetName = `ALGOSPACE Ship ${ship.shipCode}`
+  const url = `https://algospace.app/assets/ships/${ship.shipCode}.json`
+  const managerAddr = undefined
+  const reserveAddr = undefined
+  const freezeAddr = undefined
+  const clawbackAddr = undefined
+  const total = 1 // NFTs have totalIssuance of exactly 1
+  const decimals = 0 // NFTs have decimals of exactly 0
+
+  const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
+    from: creator,
+    total,
+    decimals,
+    assetName,
+    unitName,
+    assetURL: url,
+    // assetMetadataHash: metadata,
+    defaultFrozen,
+    freeze: freezeAddr,
+    manager: managerAddr,
+    clawback: clawbackAddr,
+    reserve: reserveAddr,
+    suggestedParams: params,
+  })
+
+  const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte())
+  const signedTxs = await AlgoSigner.signTxn([{ txn: txn_b64 }])
+  const sent = await AlgoSigner.send({
+    ledger: 'TestNet',
+    tx: signedTxs[0].blob,
+  })
+  console.log(sent)
+}
 
 export const getTokenBalance = async () => {}
 

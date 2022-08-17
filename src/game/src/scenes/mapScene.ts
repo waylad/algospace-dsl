@@ -1,5 +1,5 @@
 import { state } from '../state/state'
-import { levels } from '../metaverse/levels.json'
+import { levels } from '../dsl/dsl.json'
 
 export class MapScene extends Phaser.Scene {
   constructor() {

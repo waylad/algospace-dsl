@@ -1,5 +1,5 @@
 {
-  "name": "algospace-dsl-game",
+  "name": "algorand-spaceshooter-dsl-game",
   "version": "1.0.0",
   "description": "Space shooter with upgradeable NFTs",
   "keywords": [],
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/waylad/algospace-dsl.git"
+    "url": "git+https://github.com/waylad/algorand-spaceshooter-dsl.git"
   },
   "author": {
     "name": "waylad",
@@ -50,9 +50,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/waylad/algospace-dsl/issues"
+    "url": "https://github.com/waylad/algorand-spaceshooter-dsl/issues"
   },
-  "homepage": "https://github.com/waylad/algospace-dsl",
+  "homepage": "https://github.com/waylad/algorand-spaceshooter-dsl",
   "browserslist": {
     "production": [
       "edge >= 79",

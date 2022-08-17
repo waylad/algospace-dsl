@@ -12,6 +12,8 @@ export const connectWallet = async () => {
     if (typeof AlgoSigner !== 'undefined') {
       console.log('AlgoSigner is installed.')
 
+      await AlgoSigner.connect()
+
       const algodServer = 'https://testnet-algorand.api.purestake.io/ps2'
       const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
       const token = { 'X-API-Key': 'cnPOsJmkLV99ccOnzgC3d9DOrHyXrs5ka9JB2Vcl' }
@@ -20,39 +22,51 @@ export const connectWallet = async () => {
       const algodClient = new algosdk.Algodv2(token, algodServer, port)
       const indexerClient = new algosdk.Indexer(token, indexerServer, port)
 
+      const health = await algodClient.healthCheck().do()
+      console.log(health)
+
+      const accounts = await AlgoSigner.accounts({
+        ledger: 'TestNet',
+      })
+      address = accounts[0]?.address
+      console.log(address)
+
+      params = await algodClient.getTransactionParams().do()
+      console.log(params)
+
       // Check health
-      algodClient
-        .healthCheck()
-        .do()
-        .then((d: any) => {
-          console.log(d)
+      // algodClient
+      //   .healthCheck()
+      //   .do()
+      //   .then((d: any) => {
+      //     console.log(d)
 
-          // Fetch accounts
-          AlgoSigner.accounts({
-            ledger: 'TestNet',
-          })
-            .then((d: any) => {
-              address = d[0]?.address
-              console.log(address)
+      //     // Fetch accounts
+      //     AlgoSigner.accounts({
+      //       ledger: 'TestNet',
+      //     })
+      //       .then((d: any) => {
+      //         address = d[0]?.address
+      //         console.log(address)
 
-              // Get params
-              algodClient
-                .getTransactionParams()
-                .do()
-                .then((d: any) => {
-                  params = d
-                })
-                .catch((e: any) => {
-                  console.error(e)
-                })
-            })
-            .catch((e: any) => {
-              console.error(e)
-            })
-        })
-        .catch((e: any) => {
-          console.error(e)
-        })
+      //         // Get params
+      //         algodClient
+      //           .getTransactionParams()
+      //           .do()
+      //           .then((d: any) => {
+      //             params = d
+      //           })
+      //           .catch((e: any) => {
+      //             console.error(e)
+      //           })
+      //       })
+      //       .catch((e: any) => {
+      //         console.error(e)
+      //       })
+      //   })
+      //   .catch((e: any) => {
+      //     console.error(e)
+      //   })
     } else {
       console.log('AlgoSigner is NOT installed.')
     }
@@ -74,7 +88,7 @@ export const getShips = async () => {
 export const mintShip = async () => {
   const creator = address
   const defaultFrozen = false
-  const unitName = 'ALGOSPACE'
+  const unitName = 'DSL'
   const assetName = 'ALGOSPACE Ship 0000'
   const url = 'https://algospace.app/assets/ships/0000.json'
   const managerAddr = undefined
@@ -110,28 +124,33 @@ export const mintShip = async () => {
   })
 
   const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte())
-  let signedTxs
+  const signedTxs = await AlgoSigner.signTxn([{ txn: txn_b64 }])
+  const sent = await AlgoSigner.send({
+    ledger: 'TestNet',
+    tx: signedTxs[0].blob,
+  })
+  console.log(sent)
 
   // Sign Tx
-  AlgoSigner.signTxn([{ txn: txn_b64 }])
-    .then((d: any) => {
-      signedTxs = d
+  // AlgoSigner.signTxn([{ txn: txn_b64 }])
+  //   .then((d: any) => {
+  //     signedTxs = d
 
-      // Send Tx
-      AlgoSigner.send({
-        ledger: 'TestNet',
-        tx: signedTxs[0].blob,
-      })
-        .then((d: any) => {
-          console.log(d)
-        })
-        .catch((e: any) => {
-          console.error(e)
-        })
-    })
-    .catch((e: any) => {
-      console.error(e)
-    })
+  //     // Send Tx
+  //     AlgoSigner.send({
+  //       ledger: 'TestNet',
+  //       tx: signedTxs[0].blob,
+  //     })
+  //       .then((d: any) => {
+  //         console.log(d)
+  //       })
+  //       .catch((e: any) => {
+  //         console.error(e)
+  //       })
+  //   })
+  //   .catch((e: any) => {
+  //     console.error(e)
+  //   })
 }
 
 export const upgradeShip = async (ship: ShipToken) => {}

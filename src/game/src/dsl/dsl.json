@@ -1,13 +1,94 @@
 {
   "levels": [
     {
+      "id": 1,
+      "starX": 1200,
+      "starY": 150,
+      "background": "bg8",
+      "enemyShipCode": "0001",
+      "enemySpeed": 100,
+      "enemyRateOfFire": 1,
+      "enemyHealth": 2,
+      "story": {
+        "statement": "Want more health points ?",
+        "effect": {
+          "addToPlayerHealth": 0,
+          "addToEnemyHealth": 0,
+          "addToPlayerThrust": 0,
+          "addToEnemyThrust": 0,
+          "addToPlayerWeaponPower": 0,
+          "addToEnemyWeaponPower": 0
+        },
+        "responses": [
+          {
+            "response": "Yes, I want health points",
+            "story": {
+              "statement": "You gain 3 health points.",
+              "effect": {
+                "addToPlayerHealth": 3
+              },
+              "responses": []
+            }
+          },
+          {
+            "response": "No thanks, I'm fine",
+            "story": {
+              "statement": "Ok fine, what about damaging the enemy?",
+              "effect": {},
+
+              "responses": [
+                {
+                  "response": "Yes, kill him!",
+                  "story": {
+                    "statement": "The enemy looses 2 health points.",
+                    "effect": {
+                      "addToEnemyHealth": -2
+                    },
+                    "responses": []
+                  }
+                },
+                {
+                  "response": "No, I like a challenge",
+                  "story": {
+                    "statement": "Go on then!",
+                    "effect": {},
+                    "responses": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
       "starX": 160,
       "starY": 132,
       "background": "bg8",
       "enemyShipCode": "0001",
       "enemySpeed": 100,
       "enemyRateOfFire": 1,
-      "enemyHealth": 2
+      "enemyHealth": 2,
+      "story": {
+        "statement": "After staying in cryostasis for 300 years, you awake in a new galaxy. A ship is hailing you, asking for identification.",
+        "responses": [
+          {
+            "option": "You reply with your earth ID",
+            "effect": {
+              "statement": "The ship is not satisfied with your response and attacks you. You loose 3 health points.",
+              "playerHealth": -3
+            }
+          },
+          {
+            "option": "You attack the ship",
+            "effect": {
+              "statement": "You damage the ship. It looses 1 health point and returns fire.",
+              "enemyHealth": -1
+            }
+          }
+        ]
+      }
     },
     {
       "starX": 220,

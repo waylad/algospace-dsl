@@ -8,7 +8,6 @@ import { EnemyHealthBar } from '../../objects/enemyHealthBar'
 import { Level } from 'state/stateTypes'
 import { getRandomSpawnPostion } from './getRandomSpawnPostion'
 import { GameButtons } from './gameButtons'
-import { getRandomItem } from './getRandomItem'
 import { checkCollisions } from './checkCollisions'
 
 export class GameScene extends Phaser.Scene {
@@ -96,6 +95,9 @@ export class GameScene extends Phaser.Scene {
     new GameButtons({ scene: this })
     this.playerHealthBar = new PlayerHealthBar({ scene: this, health: state.playerCurrentHealth })
     this.enemyHealthBar = new EnemyHealthBar({ scene: this, health: state.enemyHealth })
+
+    state.paused = true
+    this.scene.launch('Dialog');
   }
 
   public update(time: number, delta: number): void {

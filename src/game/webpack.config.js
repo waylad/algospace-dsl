@@ -33,7 +33,7 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
-      },
+      }
     ],
   },
   devServer: {

@@ -31,7 +31,7 @@ export class DialogScene extends Phaser.Scene {
       this.sys.canvas.height / 2 + padding - dialogHeight / 2,
       `${currentLevel.story?.statement}`,
       {
-        fontFamily: 'Ethnocentric',
+        fontFamily: 'Electrolize',
         wordWrap: { width: dialogWidth - padding * 2 },
       },
     )
@@ -43,7 +43,7 @@ export class DialogScene extends Phaser.Scene {
         this.sys.canvas.height / 2 + padding - dialogHeight / 2 + (this.storyText?.height || 50) + 50 * (i + 1),
         `${i + 1}- ${response.response}`,
         {
-          fontFamily: 'Ethnocentric',
+          fontFamily: 'Electrolize',
           wordWrap: { width: dialogWidth - padding * 2 },
         },
       )

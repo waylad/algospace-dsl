@@ -193,7 +193,7 @@ export class PreloaderScene extends Phaser.Scene {
   create(): void {
     WebFont.load({
       custom: {
-        families: ['Ethnocentric'],
+        families: ['Ethnocentric', 'Electrolize'],
       },
       active: function () {},
     })

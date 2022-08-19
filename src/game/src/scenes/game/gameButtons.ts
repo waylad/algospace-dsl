@@ -53,6 +53,7 @@ export class GameButtons extends Phaser.GameObjects.Container {
 
   private destroyScene(scene: GameScene) {
     if (scene.enemy) scene.enemy.destroy()
+    if (scene.player) scene.player.destroy()
     scene.drops.forEach((drop: Drop) => drop.destroy())
     scene.drops = []
   }

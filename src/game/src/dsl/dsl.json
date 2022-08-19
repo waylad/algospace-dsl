@@ -2,8 +2,8 @@
   "levels": [
     {
       "id": 1,
-      "starX": 1200,
-      "starY": 150,
+      "starX": 150,
+      "starY": 122,
       "background": "bg8",
       "enemyShipCode": "0001",
       "enemySpeed": 100,
@@ -72,19 +72,33 @@
       "enemyHealth": 2,
       "story": {
         "statement": "After staying in cryostasis for 300 years, you awake in a new galaxy. A ship is hailing you, asking for identification.",
+        "effect": {
+          "addToPlayerHealth": 0,
+          "addToEnemyHealth": 0,
+          "addToPlayerThrust": 0,
+          "addToEnemyThrust": 0,
+          "addToPlayerWeaponPower": 0,
+          "addToEnemyWeaponPower": 0
+        },
         "responses": [
           {
-            "option": "You reply with your earth ID",
-            "effect": {
+            "response": "You reply with your earth ID",
+            "story": {
               "statement": "The ship is not satisfied with your response and attacks you. You loose 3 health points.",
-              "playerHealth": -3
+              "effect": {
+                "addToPlayerHealth": -3
+              },
+              "responses": []
             }
           },
           {
-            "option": "You attack the ship",
-            "effect": {
+            "response": "You attack the ship",
+            "story": {
               "statement": "You damage the ship. It looses 1 health point and returns fire.",
-              "enemyHealth": -1
+              "effect": {
+                "addToEnemyHealth": -1
+              },
+              "responses": []
             }
           }
         ]

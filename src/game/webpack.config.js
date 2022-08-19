@@ -4,6 +4,7 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: './src/game.ts',
+  stats: { warnings: false },
   output: {
     path: process.env.NODE_ENV === 'production' ? path.resolve(__dirname, 'dist') : path.resolve(__dirname),
     filename: 'bundle.js',
@@ -33,7 +34,7 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
-      }
+      },
     ],
   },
   devServer: {
@@ -42,6 +43,9 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     open: false,
+    client: {
+      overlay: false,
+    },
   },
   resolve: {
     extensions: ['.ts', '.js'],

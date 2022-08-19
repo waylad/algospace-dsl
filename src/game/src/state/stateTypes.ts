@@ -18,7 +18,7 @@ export type Response = {
 }
 
 export type Story = {
-  statement: string
+  statement?: string
   effect?: Effect
   responses?: Response[]
 }
@@ -39,8 +39,12 @@ export type State = {
   paused: boolean,
   playerMaxHealth: number
   playerStartingHealth: number
-  playerCurrentHealth: number
+  playerHealth: number
+  playerThrust: number
+  playerWeaponPower: number
   enemyHealth: number
+  enemyThrust: number
+  enemyWeaponPower: number
   spaceShipsContract: string
   spaceCoinsContract: string
   ownedShips: ShipToken[]

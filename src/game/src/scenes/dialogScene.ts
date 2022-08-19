@@ -50,7 +50,7 @@ export class DialogScene extends Phaser.Scene {
       this.sys.canvas.height / 2 + this.dialogPadding - this.dialogHeight / 2,
       `${story?.statement || 'Nothing happening here.'}`,
       {
-        fontFamily: 'Electrolize',
+        fontFamily: 'Ethnocentric',
         wordWrap: { width: this.dialogWidth - this.dialogPadding * 2 },
       },
     )
@@ -78,7 +78,7 @@ export class DialogScene extends Phaser.Scene {
           50 * (i + 1),
         `${i + 1}- ${response.response}`,
         {
-          fontFamily: 'Electrolize',
+          fontFamily: 'Ethnocentric',
           wordWrap: { width: this.dialogWidth - this.dialogPadding * 2 },
         },
       )

@@ -3,7 +3,28 @@ export type ShipToken = {
   shipCode: string
 }
 
+export type Effect = {
+  addToPlayerHealth?: number
+  addToEnemyHealth?: number
+  addToPlayerThrust?: number
+  addToEnemyThrust?: number
+  addToPlayerWeaponPower?: number
+  addToEnemyWeaponPower?: number
+}
+
+export type Response = {
+  response: string
+  story?: Story
+}
+
+export type Story = {
+  statement: string
+  effect?: Effect
+  responses?: Response[]
+}
+
 export type Level = {
+  id: number
   starX: number
   starY: number
   background: string
@@ -11,6 +32,7 @@ export type Level = {
   enemySpeed: number
   enemyRateOfFire: number
   enemyHealth: number
+  story?: Story
 }
 
 export type State = {

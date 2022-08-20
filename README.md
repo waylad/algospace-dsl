@@ -1,6 +1,8 @@
 ## AlgoSpace DSL
 
-### Demo Video: https://youtu.be/V0XqmG-YrR0
+### Demo Video PART 1 - The game: https://youtu.be/n1PwJC69SRI
+
+### Demo Video PART 2 - The DSL: https://youtu.be/EbLvjX4fjD8
 
 ### Demo : https://algospace.app
 
